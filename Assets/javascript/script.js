@@ -1,7 +1,7 @@
 // to display the current time on the app
 var time = dayjs();
 
-function find(){
+function find() {
     var optionRequest = {
         method: 'GET',
         redirect: 'follow'
@@ -17,10 +17,41 @@ function find(){
         lookUp();
     });
 
-    
-}
+    // get the value of the city and keep it in the url
+    var cityResponse = document.getElementById('searchCity').value;
+    var urlCurrent =
 
+        // fetchs the response based off the users inputted city. if users request is not found they returns err else returns response from api.
+        fetch(urlCurrent, optionRequest)
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error("Can not find city you are looking for");
+                    } else {
+                        throw new Error("Error fetching data");
+                    }
+                }
+                // returns information from api based on users response.
+                return response.json();
+            })
+            .then(result => {
+                // gets the current weather status and places it into an element.
+                var elStatusCurrent = document.querySelector(".statusCurrent");
 
+                if (result.weather[0].main === 'Clouds') {
+                    currentStatusElement.style = "color: white";
+                    currentStatusElement.style.backgroundImage = "url('./Assets/image/Cloudy.jpg')";
+                } else if (result.weather[0].main === 'Sunny') {
+                    currentStatusElement.style = "color: white";
+                    currentStatusElement.style.backgroundImage = "url('./Assets/image/Sunny.jpg')";
+                } else if (result.weather[0].main === 'Wind') {
+                    currentStatusElement.style = "color: white";
+                    currentStatusElement.style.backgroundImage = "url('./Assets/image/Windy.jpg')";
+                } else if (result.weather[0].main === 'Rain') {
+                    currentStatusElement.style = "color: white";
+                    currentStatusElement.style.backgroundImage = "url('./Assets/image/Rain.jpg')";
+                } else currentStatusElement.style.backgroundImage = "url('./Assets/image/Snowy.jpg')";
+            })
 
 // myHeaders.append("X-RapidAPI-Key", "203d6f8221msh723786e2656b6a5p1512adjsn9cc9321e6473");
 
