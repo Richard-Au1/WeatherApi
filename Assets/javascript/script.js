@@ -1,18 +1,6 @@
 // to display the current time on the app
 var time = dayjs();
 
-window.onload = function () {
-    var messageContainer = document.querySelector(".container-message");
-
-    var messageContainerWidth = messageContainer.offsetWidth;
-
-    var translateXValue = `calc(-${messageContainerWidth}px - 100px)`;
-    var styleSheet = document.styleSheets[0];
-    var keyframesRule = styleSheet.cssRules[styleSheet.cssRules.length - 1];
-    keyframesRule.deleteRule("100%");
-    keyframesRule.appendRule(`100% { transform: translateX(${translateXValue}); }`);
-};
-
 function find() {
     var optionRequest = {
         method: 'GET',
@@ -344,8 +332,8 @@ function handleFiveDayStatus(nameCity) {
                 days.push(dayX);
             }
 
-            var containerForecast = document.querySelector(".boxes");
-            containerForecast.innerHTML = ""; 
+            var containerForecast = document.querySelector("boxes");
+            containerForecast.innerHTML = "Placeholder data"; 
 
             var dayElements = ["day1", "day2", "day3", "day4", "day5"];
             dayElements.forEach((dayElementClass, index) => {
