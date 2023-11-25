@@ -1,18 +1,12 @@
 // to display the current time on the app
 var time = dayjs();
 
-// Function to be executed when the page loads
 window.onload = function () {
-    // Get the message container element
     var messageContainer = document.querySelector(".container-message");
 
-    // Calculate the width of the message container
     var messageContainerWidth = messageContainer.offsetWidth;
 
-    // Set the negative value of translateX for keyframes animation
     var translateXValue = `calc(-${messageContainerWidth}px - 100px)`;
-
-    // Update the animation with the calculated translateX value
     var styleSheet = document.styleSheets[0];
     var keyframesRule = styleSheet.cssRules[styleSheet.cssRules.length - 1];
     keyframesRule.deleteRule("100%");
@@ -27,12 +21,10 @@ function find() {
     // event listener for search button
     var searchButton = document.querySelector(".btn");
     searchButton.addEventListener("click", function () {
-        var cityResponseField = document.getElementById("cityResponse");
-        var nameCity = cityResponseField.value.trim(); // Trim any leading/trailing spaces from the input
-        var cityResponseorder = cityCap(nameCity); // Format the city name
-        var nameCity = cityResponseField.value.trim(); // Trim any leading/trailing spaces from the input
-        var cityResponseorder = cityCap(nameCity); // Format the city name
-        lookUp();
+        var searchCityField = document.getElementById("searchCity");
+        var nameCity = searchCityField.value.trim(); // Trim any leading/trailing spaces from the input
+        var searchCityorder = cityCap(nameCity); // Format the city name
+        find();
     });
 
     // get the value of the city and keep it in the url
@@ -173,19 +165,19 @@ function storeCity(nameCity) {
         return;
     }
 
-    var cityResponseorder = cityCap(nameCity);
+    var searchCityorder = cityCap(nameCity);
 
     // put existing cities in array
     var cities = JSON.parse(localStorage.getItem("cities")) || [];
 
-    // see if cityresponseorder exist
-    var index = cities.indexOf(cityResponseorder);
+    // see if searchCityorder exist
+    var index = cities.indexOf(searchCityorder);
     if (index !== -1) {
-        // If cityResponseorder exists, remove the older entry
+        // If searchCityorder exists, remove the older entry
         cities.splice(index, 1);
     }
 
-    cities.push(cityResponseorder);
+    cities.push(searchCityorder);
 
     if (cities.length > 6) {
         cities.shift();
@@ -234,29 +226,29 @@ function handleFiveDayStatus(nameCity) {
                 var tomorrowDay = parseFloat(dayjs().format('DD')) + 1;
 
                 if (dayOfMonth < tomorrowDay) {
-                    continue; // Skip this iteration
+                    continue; 
                 }
-                var chunkIndex = Math.floor(i / 8); // Calculate the index of the chunk array
+                var chunkIndex = Math.floor(i / 8); 
                 if (!tempHighArrays[chunkIndex]) {
-                    tempHighArrays[chunkIndex] = []; // Initialize the chunk array if it doesn't exist
+                    tempHighArrays[chunkIndex] = []; 
                 }
                 tempHighArrays[chunkIndex].push(element.main.temp_max);
 
-                var chunkIndex = Math.floor(i / 8); // Calculate the index of the chunk array
+                var chunkIndex = Math.floor(i / 8); 
                 if (!tempLowArrays[chunkIndex]) {
-                    tempLowArrays[chunkIndex] = []; // Initialize the chunk array if it doesn't exist
+                    tempLowArrays[chunkIndex] = []; 
                 }
                 tempLowArrays[chunkIndex].push(element.main.temp_min);
 
-                var chunkIndex = Math.floor(i / 8); // Calculate the index of the chunk array
+                var chunkIndex = Math.floor(i / 8); 
                 if (!windSpeedArrays[chunkIndex]) {
-                    windSpeedArrays[chunkIndex] = []; // Initialize the chunk array if it doesn't exist
+                    windSpeedArrays[chunkIndex] = []; 
                 }
                 windSpeedArrays[chunkIndex].push(element.wind.speed);
 
-                var chunkIndex = Math.floor(i / 8); // Calculate the index of the chunk array
+                var chunkIndex = Math.floor(i / 8); 
                 if (!humidityArrays[chunkIndex]) {
-                    humidityArrays[chunkIndex] = []; // Initialize the chunk array if it doesn't exist
+                    humidityArrays[chunkIndex] = []; 
                 }
                 humidityArrays[chunkIndex].push(element.main.humidity);
 
@@ -289,12 +281,12 @@ function handleFiveDayStatus(nameCity) {
                             emoji = '🔥💨';
                             break;
                         default:
-                            emoji = undefined; // Default value if none of the cases match
+                            emoji = undefined; 
                     }
 
                     var dayIndex = Math.floor(i / 8);
                     if (!emojiArray[dayIndex]) {
-                        emojiArray[dayIndex] = []; // Initialize the array for the day if it doesn't exist
+                        emojiArray[dayIndex] = []; 
                     }
                     emojiArray[dayIndex].push(emoji);
                 }
@@ -305,7 +297,7 @@ function handleFiveDayStatus(nameCity) {
             });
             tempHighArrays.forEach(chunk => {
                 if (chunk.length > 1) {
-                    chunk.splice(1); // Remove elements after the first one (keep only the highest value)
+                    chunk.splice(1); 
                 }
             });
 
@@ -314,7 +306,7 @@ function handleFiveDayStatus(nameCity) {
             });
             tempLowArrays.forEach(chunk => {
                 if (chunk.length > 1) {
-                    chunk.splice(1); // Remove elements after the first one (keep only the highest value)
+                    chunk.splice(1); 
                 }
             });
 
@@ -352,8 +344,8 @@ function handleFiveDayStatus(nameCity) {
                 days.push(dayX);
             }
 
-            var forecastContainer = document.querySelector(".boxes");
-            forecastContainer.innerHTML = ""; 
+            var containerForecast = document.querySelector("boxes");
+            containerForecast.innerHTML = ""; 
 
             var dayElements = ["day1", "day2", "day3", "day4", "day5"];
             dayElements.forEach((dayElementClass, index) => {
@@ -378,7 +370,7 @@ function handleFiveDayStatus(nameCity) {
         })
         .catch(error => {
             console.log('error', error);
-            var fiveDayStatusElement = document.querySelector(".fiveDayStatusContainer");
+            var fiveDayStatusElement = document.querySelector(".fiveDayContainer");
             fiveDayStatusElement.textContent = "Error fetching forecast data";
         });
 }
@@ -396,8 +388,8 @@ function displayHistory(cities) {
         historyElement.appendChild(buttonElement);
 
         buttonElement.addEventListener("click", function () {
-            document.getElementById("cityResponse").value = city;
-            lookUp();
+            document.getElementById("searchCity").value = city;
+            find();
         });
     });
 }
@@ -406,9 +398,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.querySelector('.btn').addEventListener('click', find);
 
-    document.getElementById('cityResponse').addEventListener('keypress', function (event) {
+    document.getElementById('searchCity').addEventListener('keypress', function (event) {
         if (event.key === 'Enter') {
-            lookUp();
+            find();
         }
     });
 
