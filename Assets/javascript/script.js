@@ -344,7 +344,7 @@ function handleFiveDayStatus(nameCity) {
                 days.push(dayX);
             }
 
-            var containerForecast = document.querySelector("boxes");
+            var containerForecast = document.querySelector(".boxes");
             containerForecast.innerHTML = ""; 
 
             var dayElements = ["day1", "day2", "day3", "day4", "day5"];
@@ -365,7 +365,7 @@ function handleFiveDayStatus(nameCity) {
                     }
                 });
 
-                forecastContainer.appendChild(dayElement);
+                containerForecast.appendChild(dayElement);
             });
         })
         .catch(error => {
