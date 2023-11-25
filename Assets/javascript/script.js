@@ -332,8 +332,8 @@ function handleFiveDayStatus(nameCity) {
                 days.push(dayX);
             }
 
-            var containerForecast = document.querySelector("boxes");
-            containerForecast.innerHTML = "Placeholder data"; 
+            var containerForecast = document.querySelector(".boxes");
+            containerForecast.innerHTML = ""; 
 
             var dayElements = ["day1", "day2", "day3", "day4", "day5"];
             dayElements.forEach((dayElementClass, index) => {
