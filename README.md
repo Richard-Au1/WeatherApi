@@ -14,12 +14,11 @@ Github Repository: https://github.com/Richard-Au1/WeatherApi
 Application Website: https://richard-au1.github.io/Event-planner/
 
 The user will type in the text bar to search for the current weather presented for the specified city. 
-![Alt text](image.png)
+![Alt text](<Assets/image/before search.png>)
 
 Once the search button is entered, then the application will display the next 5 day forecast and as well as the current weather conditions. Also it will put a history button on the left side of the page to allow the user to revisit the weather conditions of that city. 
 
-![Alt text](image.png)
-
+![Alt text](Assets/image/image.png)
 ## Credits
 
 The mentors I have had along the way.
